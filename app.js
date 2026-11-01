@@ -47,7 +47,11 @@ const turnCopy = [
 ];
 document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => {
   document.querySelectorAll('[data-step]').forEach(b => { b.classList.toggle('selected', b === button); b.setAttribute('aria-pressed', String(b === button)); });
-  const [badge, caption] = turnCopy[Number(button.dataset.step)];
+  const step = Number(button.dataset.step);
+  const [badge, caption] = turnCopy[step];
+  document.querySelectorAll('[data-turn-panel]').forEach(panel => {
+    panel.hidden = Number(panel.dataset.turnPanel) !== step;
+  });
   document.querySelector('#draw-badge').textContent = badge;
   document.querySelector('#turn-caption').textContent = caption;
   const visual = document.querySelector('#turn-visual'); visual.classList.remove('changed');
